@@ -1,3 +1,7 @@
+<?php
+helper('url');
+$uri = service('uri');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,7 +149,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
+            <a class="navbar-brand fw-bold" href="<?= base_url('/') ?>">
                 <i class="fas fa-graduation-cap text-primary me-2"></i>
                 LMS Dashboard
             </a>
@@ -155,7 +159,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link<?= ($uri->getPath() === '' ? ' active' : '') ?>" href="<?= base_url('/') ?>"><i class="fas fa-home me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link<?= ($uri->getPath() === 'about' ? ' active' : '') ?>" href="<?= base_url('about') ?>"><i class="fas fa-info-circle me-1"></i>About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link<?= ($uri->getPath() === 'contact' ? ' active' : '') ?>" href="<?= base_url('contact') ?>"><i class="fas fa-envelope me-1"></i>Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-book me-1"></i>Courses</a>

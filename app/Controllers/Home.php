@@ -10,6 +10,9 @@ class Home extends BaseController
 {
     public function index(): string
     {
+        if (! session('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
         $userModel = new UserModel();
         $courseModel = new CourseModel();
         $enrollmentModel = new EnrollmentModel();

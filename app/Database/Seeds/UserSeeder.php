@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        $this->db->table('users')->insertBatch($data);
+        // Ignore duplicates on unique email to avoid seeding errors if run multiple times
+        $this->db->table('users')->ignore(true)->insertBatch($data);
     }
 }

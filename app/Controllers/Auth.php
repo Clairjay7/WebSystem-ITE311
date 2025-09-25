@@ -53,6 +53,11 @@ class Auth extends BaseController
         helper(['form', 'url']);
         $data = [];
 
+        // Ensure default admin & instructor accounts exist when opening the login page
+        if ($this->request->getMethod() !== 'POST') {
+            $this->ensureDefaultUsers();
+        }
+
         if ($this->request->getMethod() == 'POST') {
             $rules = [
                 'email'    => 'required|valid_email',
@@ -68,12 +73,8 @@ class Auth extends BaseController
 
                 if ($user) {
                     if (password_verify($this->request->getPost('password'), $user['password'])) {
-                        // Optional: enforce role match
-                        $requestedRole = $this->request->getPost('role');
-                        if (!empty($user['role']) && $requestedRole !== $user['role']) {
-                            session()->setFlashdata('error', 'This account is not an ' . $requestedRole . ' account.');
-                            return redirect()->to('/login');
-                        }
+                        // Do not block login based on requested role; rely on stored role
+                        // $requestedRole = $this->request->getPost('role');
                         $sessionData = [
                             'id'        => $user['id'],
                             'name'      => $user['name'],
@@ -82,6 +83,9 @@ class Auth extends BaseController
                             'isLoggedIn'=> true,
                         ];
                         session()->set($sessionData);
+
+                        // Friendly welcome message on unified dashboard
+                        session()->setFlashdata('welcome', 'Welcome back, ' . $user['name'] . '!');
 
                         return redirect()->to('/dashboard');
                     } else {
@@ -110,7 +114,108 @@ class Auth extends BaseController
         if (!session()->get('isLoggedIn')) {
             return redirect()->to('/login');
         }
+        // Ensure a role exists in session for unified dashboard rendering
+        if (!session()->has('role') || empty(session('role'))) {
+            session()->set('role', 'student');
+        }
 
-        return view('dashboard');
+        $role = strtolower((string) session('role'));
+        $userId = (int) session('id');
+
+        $model = new UserModel();
+        $data = [];
+
+        if ($role === 'admin') {
+            // Example role-specific data for admin: user counts by role
+            $studentsCount = (new UserModel())->where('role', 'student')->countAllResults();
+            $instructorsCount = (new UserModel())->where('role', 'instructor')->countAllResults();
+            $adminsCount = (new UserModel())->where('role', 'admin')->countAllResults();
+
+            $data['metrics'] = [
+                'students' => $studentsCount,
+                'instructors' => $instructorsCount,
+                'admins' => $adminsCount,
+            ];
+        } elseif ($role === 'instructor') {
+            // Example role-specific data for instructor: latest students
+            $recentStudents = (new UserModel())
+                ->where('role', 'student')
+                ->orderBy('id', 'DESC')
+                ->findAll(5);
+            $data['recentStudents'] = $recentStudents;
+        } else {
+            // Example role-specific data for student: own profile
+            $profile = $model->find($userId);
+            $data['profile'] = $profile;
+        }
+
+        return view('auth/dashboard', $data);
+    }
+
+    // Temporary seeding endpoint to create default admin and instructor accounts
+    public function seedDefaults()
+    {
+        $model = new UserModel();
+        $created = [];
+
+        $defaults = [
+            [
+                'name' => 'Site Admin',
+                'email' => 'admin@example.com',
+                'password' => password_hash('admin123', PASSWORD_DEFAULT),
+                'role' => 'admin',
+            ],
+            [
+                'name' => 'Lead Instructor',
+                'email' => 'teacher@example.com',
+                'password' => password_hash('teacher123', PASSWORD_DEFAULT),
+                'role' => 'instructor',
+            ],
+        ];
+
+        foreach ($defaults as $userData) {
+            $existing = $model->where('email', $userData['email'])->first();
+            if (!$existing) {
+                $model->insert($userData);
+                $created[] = $userData['email'];
+            }
+        }
+
+        if (!empty($created)) {
+            return $this->response->setJSON(['status' => 'ok', 'created' => $created]);
+        }
+
+        return $this->response->setJSON(['status' => 'ok', 'message' => 'Already seeded']);
+    }
+
+    // Internal utility: silently ensure default admin & instructor accounts exist
+    private function ensureDefaultUsers(): void
+    {
+        try {
+            $model = new UserModel();
+            $defaults = [
+                [
+                    'name' => 'Site Admin',
+                    'email' => 'admin@example.com',
+                    'password' => password_hash('admin123', PASSWORD_DEFAULT),
+                    'role' => 'admin',
+                ],
+                [
+                    'name' => 'Lead Instructor',
+                    'email' => 'teacher@example.com',
+                    'password' => password_hash('teacher123', PASSWORD_DEFAULT),
+                    'role' => 'instructor',
+                ],
+            ];
+
+            foreach ($defaults as $userData) {
+                $exists = $model->where('email', $userData['email'])->first();
+                if (!$exists) {
+                    $model->insert($userData);
+                }
+            }
+        } catch (\Throwable $e) {
+            // avoid disrupting login page if DB not ready
+        }
     }
 }

@@ -1,7 +1,5 @@
 <?= $this->extend('template') ?>
-<?= $this->section('styles') ?>
-<link rel="stylesheet" href="<?= base_url('/css/register.css') ?>">
-<?= $this->endSection() ?>
+<?= $this->section('styles') ?><?= $this->endSection() ?>
 
 <?= $this->section('body_class') ?>page-register<?= $this->endSection() ?>
 

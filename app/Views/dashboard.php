@@ -1,7 +1,5 @@
 <?= $this->extend('template') ?>
-<?= $this->section('styles') ?>
-<link rel="stylesheet" href="<?= base_url('css/dashboard.css') ?>">
-<?= $this->endSection() ?>
+<?= $this->section('styles') ?><?= $this->endSection() ?>
 
 <?= $this->section('body_class') ?>page-dashboard<?= $this->endSection() ?>
 
@@ -16,22 +14,17 @@ $roleLabel = 'Student';
 $logo = base_url('https://pnghq.com/wp-content/uploads/student-icon-png-free-highres-download-94160.png');
 ?>
 
-<style>
-.dash-card { border-radius: 16px; overflow: hidden; box-shadow: 0 10px 24px rgba(0,0,0,.08); }
-.dash-header { background: linear-gradient(135deg,#0d6efd,#6f42c1); color:#fff; }
-.dash-logo { width:64px;height:64px;border-radius:12px;background:#fff;padding:10px; }
-.stat-pill { border-radius: 12px; padding:.5rem 1rem; background:#f8f9fa; }
-</style>
+ 
 
 <div class="container py-4">
 	<?php if (session()->getFlashdata('welcome')): ?>
 		<div class="alert alert-success mb-3"><?= session()->getFlashdata('welcome') ?></div>
 	<?php endif; ?>
 
-	<div class="card dash-card">
+	<div class="card">
 		<div class="card-body p-4">
 			<div class="d-flex align-items-center gap-3 mb-3">
-				<img src="<?= $logo ?>" alt="Role" class="dash-logo">
+				<img src="<?= $logo ?>" alt="Role" style="width:64px;height:64px;border-radius:12px;background:#fff;padding:10px;">
 				<div>
 					<h3 class="mb-1">Welcome, <?= esc($name) ?>!</h3>
 					<span class="badge bg-primary text-uppercase"><?= esc($roleLabel) ?></span>
@@ -39,10 +32,10 @@ $logo = base_url('https://pnghq.com/wp-content/uploads/student-icon-png-free-hig
 			</div>
 			<div class="row g-3">
 				<div class="col-md-6">
-					<div class="stat-pill"><strong>Email:</strong> <?= esc($email) ?></div>
+					<div class="border rounded p-2 bg-light"><strong>Email:</strong> <?= esc($email) ?></div>
 				</div>
 				<div class="col-md-6">
-					<div class="stat-pill"><strong>Role:</strong> <?= esc($roleLabel) ?></div>
+					<div class="border rounded p-2 bg-light"><strong>Role:</strong> <?= esc($roleLabel) ?></div>
 				</div>
 			</div>
 		</div>

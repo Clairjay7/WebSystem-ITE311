@@ -18,3 +18,8 @@ $routes->post('/login', 'Auth::login');
 $routes->get('/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Auth::dashboard');
 $routes->get('/seed-defaults', 'Auth::seedDefaults');
+
+// Instructor routes
+$routes->get('/instructor/my-classes', 'Instructor::myClasses');
+$routes->get('/instructor/submissions', 'Instructor::submissions');
+$routes->get('/instructor/attendance', 'Instructor::attendance');

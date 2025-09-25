@@ -70,13 +70,13 @@ $logo = $roleToLogo[$role] ?? $roleToLogo['student'];
 	<?php elseif ($role === 'instructor'): ?>
 		<div class="row g-3 mt-4">
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">My Classes</h5><p class="text-muted mb-3">Manage classes and materials</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">My Classes</h5><p class="text-muted mb-3">Manage classes and materials</p><a href="<?= site_url('/instructor/my-classes') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Submissions</h5><p class="text-muted mb-3">Review and grade student work</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Submissions</h5><p class="text-muted mb-3">Review and grade student work</p><a href="<?= site_url('/instructor/submissions') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Attendance</h5><p class="text-muted mb-3">Record and track attendance</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Attendance</h5><p class="text-muted mb-3">Record and track attendance</p><a href="<?= site_url('/instructor/attendance') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 		</div>
 	<?php elseif ($role === 'admin'): ?>

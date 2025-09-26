@@ -5,11 +5,13 @@
 
 <?= $this->section('content') ?>
 
-<div class="login-wrap">
-        <div class="card">
-            <div class="card-header text-center">
-                <strong>Welcome back</strong>
-            </div>
+<div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+                <div class="card shadow-sm">
+                    <div class="card-header text-center">
+                        <strong>Welcome back</strong>
+                    </div>
 
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
@@ -26,14 +28,14 @@
                 <div class="mb-3" role="radiogroup" aria-label="Login as">
                     <label class="form-label" style="text-align:center; display:block; margin-bottom:8px;">Login as</label>
                     <input type="hidden" name="role" id="roleInput" value="student">
-                    <div id="roleGrid" class="d-flex justify-content-center gap-2">
-                        <label class="btn btn-outline-primary active" data-role="student" role="radio" aria-checked="true" tabindex="0">
+                    <div id="roleGrid" class="d-flex justify-content-center gap-2 flex-wrap">
+                        <label class="btn btn-outline-primary role-option active" data-role="student" role="radio" aria-checked="true" tabindex="0">
                             <input type="radio" name="rolePick" value="student" class="role-radio" autocomplete="off" checked> Student
                         </label>
-                        <label class="btn btn-outline-primary" data-role="instructor" role="radio" aria-checked="false" tabindex="0">
+                        <label class="btn btn-outline-primary role-option" data-role="instructor" role="radio" aria-checked="false" tabindex="0">
                             <input type="radio" name="rolePick" value="instructor" class="role-radio" autocomplete="off"> Instructor
                         </label>
-                        <label class="btn btn-outline-primary" data-role="admin" role="radio" aria-checked="false" tabindex="0">
+                        <label class="btn btn-outline-primary role-option" data-role="admin" role="radio" aria-checked="false" tabindex="0">
                             <input type="radio" name="rolePick" value="admin" class="role-radio" autocomplete="off"> Admin
                         </label>
                     </div>
@@ -48,8 +50,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
+                    </div>
+                </div>
+            </div>
         </div>
-</div>
+    </div>
 
 
 <?= $this->endSection() ?>
@@ -61,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('loginForm');
 
     function setActiveByRadio(radio) {
-        const labels = grid.querySelectorAll('.role-card');
+        const labels = grid.querySelectorAll('.role-option');
         labels.forEach(l => {
             l.classList.toggle('active', l.querySelector('.role-radio') === radio);
             l.setAttribute('aria-checked', l.querySelector('.role-radio') === radio ? 'true' : 'false');
@@ -78,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Also handle click anywhere on the label to check the radio programmatically
     grid.addEventListener('click', (e) => {
-        const label = e.target.closest('.role-card');
+        const label = e.target.closest('.role-option');
         if (label) {
             const radio = label.querySelector('.role-radio');
             if (radio) {

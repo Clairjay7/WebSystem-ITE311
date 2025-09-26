@@ -5,6 +5,17 @@ use App\Models\UserModel;
 
 class Auth extends BaseController
 {
+    private function generateUniqueStudentId(): string
+    {
+        $model = new UserModel();
+        // Format: S-YYYYMMDD-XXXX (random 4 digits)
+        $prefix = 'S-' . date('Ymd') . '-';
+        do {
+            $candidate = $prefix . str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+            $exists = $model->where('student_id', $candidate)->first();
+        } while ($exists);
+        return $candidate;
+    }
     public function register()
     {
         helper(['form', 'url']);
@@ -12,9 +23,15 @@ class Auth extends BaseController
 
         if ($this->request->getMethod() == 'POST') {
             $rules = [
-                'name'     => 'required|min_length[2]|max_length[100]',
-                'email'    => 'required|valid_email|max_length[100]|is_unique[users.email]',
-                'password' => 'required|min_length[6]',
+                'first_name'     => 'required|min_length[2]|max_length[100]',
+                'last_name'      => 'required|min_length[2]|max_length[100]',
+                'email'          => 'required|valid_email|max_length[100]|is_unique[users.email]',
+                'password'       => 'required|min_length[6]',
+                'student_id'     => 'permit_empty|max_length[50]',
+                'middle_name'    => 'permit_empty|max_length[100]',
+                'date_of_birth'  => 'permit_empty|valid_date',
+                'gender'         => 'permit_empty|in_list[Male,Female,Other]',
+                'contact_number' => 'permit_empty|max_length[30]',
             ];
 
             if (!$this->validate($rules)) {
@@ -22,11 +39,26 @@ class Auth extends BaseController
             } else {
                 $model = new UserModel();
 
+                $first = trim($this->request->getPost('first_name'));
+                $middle = trim($this->request->getPost('middle_name'));
+                $last = trim($this->request->getPost('last_name'));
+                $fullName = trim($first . ' ' . ($middle ? $middle . ' ' : '') . $last);
+
+                // Always auto-generate a unique student_id
+                $studentId = $this->generateUniqueStudentId();
+
                 $newData = [
-                    'name'     => trim($this->request->getPost('name')),
-                    'email'    => trim($this->request->getPost('email')),
-                    'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-                    'role'     => 'student'
+                    'name'           => $fullName,
+                    'first_name'     => $first,
+                    'middle_name'    => $middle,
+                    'last_name'      => $last,
+                    'student_id'     => $studentId,
+                    'date_of_birth'  => $this->request->getPost('date_of_birth'),
+                    'gender'         => $this->request->getPost('gender'),
+                    'contact_number' => trim($this->request->getPost('contact_number')),
+                    'email'          => trim($this->request->getPost('email')),
+                    'password'       => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                    'role'           => 'student'
                 ];
 
                 try {

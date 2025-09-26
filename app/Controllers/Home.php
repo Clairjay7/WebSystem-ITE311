@@ -10,25 +10,13 @@ class Home extends BaseController
 {
     public function index(): string
     {
+        // Show public homepage for guests without hitting models
         if (! session('isLoggedIn')) {
-            return redirect()->to('/login');
+            return view('index');
         }
-        $userModel = new UserModel();
-        $courseModel = new CourseModel();
-        $enrollmentModel = new EnrollmentModel();
 
-        $data = [
-            'totalUsers' => $userModel->countAll(),
-            'totalCourses' => $courseModel->getCourseCount(),
-            'totalEnrollments' => $enrollmentModel->getEnrollmentCount(),
-            'instructors' => $userModel->getInstructors(),
-            'students' => $userModel->getStudents(),
-            'recentCourses' => $courseModel->getRecentCourses(6),
-            'recentEnrollments' => $enrollmentModel->getRecentEnrollments(5),
-            'allCourses' => $courseModel->getCoursesWithInstructor()
-        ];
-
-        return view('template', $data);
+        // For logged-in users you can later load dashboard-like stats here.
+        return view('index');
     }
 
     public function about(): string

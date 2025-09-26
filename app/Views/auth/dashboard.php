@@ -58,13 +58,13 @@ $logo = $roleToLogo[$role] ?? $roleToLogo['student'];
 	<?php if ($role === 'student'): ?>
 		<div class="row g-3 mt-4">
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Courses</h5><p class="text-muted mb-3">Your enrolled subjects and materials</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Courses</h5><p class="text-muted mb-3">Your enrolled subjects and materials</p><a href="<?= site_url('/student/courses') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Assignments</h5><p class="text-muted mb-3">Pending and submitted tasks</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Assignments</h5><p class="text-muted mb-3">Pending and submitted tasks</p><a href="<?= site_url('/student/assignments') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Grades</h5><p class="text-muted mb-3">Exam scores and performance</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Grades</h5><p class="text-muted mb-3">Exam scores and performance</p><a href="<?= site_url('/student/grades') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 		</div>
 	<?php elseif ($role === 'instructor'): ?>

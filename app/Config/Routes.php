@@ -25,6 +25,11 @@ $routes->get('/instructor/my-classes', 'Instructor::myClasses');
 $routes->get('/instructor/submissions', 'Instructor::submissions');
 $routes->get('/instructor/attendance', 'Instructor::attendance');
 
+// Student routes
+$routes->get('/student/courses', 'Student::courses');
+$routes->get('/student/assignments', 'Student::assignments');
+$routes->get('/student/grades', 'Student::grades');
+
 // Admin routes
 $routes->get('/admin/users', 'Admin::users');
 $routes->get('/admin/reports', 'Admin::reports');

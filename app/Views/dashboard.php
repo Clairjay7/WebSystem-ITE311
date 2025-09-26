@@ -57,7 +57,7 @@ $logo = base_url('https://pnghq.com/wp-content/uploads/student-icon-png-free-hig
 				<div class="card-body">
 					<h5 class="card-title mb-2">Courses / Subjects</h5>
 					<p class="text-muted mb-3">Enrolled classes, schedules, materials</p>
-					<a href="#" class="btn btn-sm btn-outline-primary">Open</a>
+					<a href="<?= site_url('/student/courses') ?>" class="btn btn-sm btn-outline-primary">Open</a>
 				</div>
 			</div>
 		</div>
@@ -66,7 +66,7 @@ $logo = base_url('https://pnghq.com/wp-content/uploads/student-icon-png-free-hig
 				<div class="card-body">
 					<h5 class="card-title mb-2">Assignments</h5>
 					<p class="text-muted mb-3">Pending and submitted tasks</p>
-					<a href="#" class="btn btn-sm btn-outline-primary">Open</a>
+					<a href="<?= site_url('/student/assignments') ?>" class="btn btn-sm btn-outline-primary">Open</a>
 				</div>
 			</div>
 		</div>
@@ -75,7 +75,7 @@ $logo = base_url('https://pnghq.com/wp-content/uploads/student-icon-png-free-hig
 				<div class="card-body">
 					<h5 class="card-title mb-2">Grades / Results</h5>
 					<p class="text-muted mb-3">Exam scores and performance</p>
-					<a href="#" class="btn btn-sm btn-outline-primary">Open</a>
+					<a href="<?= site_url('/student/grades') ?>" class="btn btn-sm btn-outline-primary">Open</a>
 				</div>
 			</div>
 		</div>

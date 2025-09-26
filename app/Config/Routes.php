@@ -24,3 +24,8 @@ $routes->get('/seed-defaults', 'Auth::seedDefaults');
 $routes->get('/instructor/my-classes', 'Instructor::myClasses');
 $routes->get('/instructor/submissions', 'Instructor::submissions');
 $routes->get('/instructor/attendance', 'Instructor::attendance');
+
+// Admin routes
+$routes->get('/admin/users', 'Admin::users');
+$routes->get('/admin/reports', 'Admin::reports');
+$routes->get('/admin/settings', 'Admin::settings');

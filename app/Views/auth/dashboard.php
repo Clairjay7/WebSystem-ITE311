@@ -82,13 +82,13 @@ $logo = $roleToLogo[$role] ?? $roleToLogo['student'];
 	<?php elseif ($role === 'admin'): ?>
 		<div class="row g-3 mt-4">
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">User Management</h5><p class="text-muted mb-3">Create, update, and assign roles</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">User Management</h5><p class="text-muted mb-3">Create, update, and assign roles</p><a href="<?= site_url('/admin/users') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Reports</h5><p class="text-muted mb-3">System and academic reports</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Reports</h5><p class="text-muted mb-3">System and academic reports</p><a href="<?= site_url('/admin/reports') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 			<div class="col-md-4">
-				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Settings</h5><p class="text-muted mb-3">Configure site preferences</p><a href="#" class="btn btn-sm btn-outline-primary">Open</a></div></div>
+				<div class="card h-100"><div class="card-body"><h5 class="card-title mb-2">Settings</h5><p class="text-muted mb-3">Configure site preferences</p><a href="<?= site_url('/admin/settings') ?>" class="btn btn-sm btn-outline-primary">Open</a></div></div>
 			</div>
 		</div>
 	<?php else: ?>

@@ -14,7 +14,7 @@
 					</div>
                     <div class="card-body">
             <div class="title-area">
-                <img src="<?= base_url('public/favicon.ico') ?>" alt="Logo">
+                <img src="<?= base_url('favicon.ico') ?>" alt="Logo">
                 <h3>Register</h3>
             </div>
 

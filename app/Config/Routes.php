@@ -20,6 +20,9 @@ $routes->get('/logout', 'Auth::logout');
 $routes->get('/dashboard', 'Auth::dashboard');
 $routes->get('/seed-defaults', 'Auth::seedDefaults');
 
+// Course routes
+$routes->post('/course/enroll', 'Course::enroll');
+
 // Instructor routes
 $routes->get('/instructor/my-classes', 'Instructor::myClasses');
 $routes->get('/instructor/submissions', 'Instructor::submissions');

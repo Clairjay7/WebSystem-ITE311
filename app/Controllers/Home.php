@@ -8,14 +8,14 @@ use App\Models\EnrollmentModel;
 
 class Home extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        // Show public homepage for guests without hitting models
-        if (! session('isLoggedIn')) {
-            return view('index');
+        // If user is logged in, redirect to their dashboard
+        if (session('isLoggedIn')) {
+            return redirect()->to('/dashboard');
         }
 
-        // For logged-in users you can later load dashboard-like stats here.
+        // Show public homepage for guests
         return view('index');
     }
 

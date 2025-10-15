@@ -16,7 +16,11 @@ $roleLabel = $role ? strtoupper($role) : '';
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link<?= in_array($uri->getPath(), ['', 'home'], true) ? ' active' : '' ?>" href="<?= site_url('/home') ?>">Home</a>
+          <?php if ($isLoggedIn): ?>
+            <a class="nav-link<?= $uri->getPath() === 'dashboard' ? ' active' : '' ?>" href="<?= site_url('/dashboard') ?>">Dashboard</a>
+          <?php else: ?>
+            <a class="nav-link<?= in_array($uri->getPath(), ['', 'home'], true) ? ' active' : '' ?>" href="<?= site_url('/home') ?>">Home</a>
+          <?php endif; ?>
         </li>
         <li class="nav-item">
           <a class="nav-link<?= $uri->getPath() === 'about' ? ' active' : '' ?>" href="<?= site_url('/about') ?>">About</a>

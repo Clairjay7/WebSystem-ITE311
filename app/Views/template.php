@@ -159,15 +159,6 @@ $uri = service('uri');
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link<?= ($uri->getPath() === '' ? ' active' : '') ?>" href="<?= base_url('/') ?>"><i class="fas fa-home me-1"></i>Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link<?= ($uri->getPath() === 'about' ? ' active' : '') ?>" href="<?= base_url('about') ?>"><i class="fas fa-info-circle me-1"></i>About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link<?= ($uri->getPath() === 'contact' ? ' active' : '') ?>" href="<?= base_url('contact') ?>"><i class="fas fa-envelope me-1"></i>Contact</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fas fa-book me-1"></i>Courses</a>
                     </li>
                     <li class="nav-item">
